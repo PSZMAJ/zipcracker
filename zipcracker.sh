@@ -52,6 +52,17 @@ zip2john_brute()
 	sudo rm hash.txt
 }
 
+rar2john()
+{
+	echo "Podaj sciezke do pliku np. /home/kali/Desktop/plik.rar";
+	read sciezka
+	sudo rar2john $sciezka > hash.txt
+	sudo chmod 777 hash.txt
+	john --wordlist=top_polskie_hasla.txt hash.txt
+	sleep 5
+	sudo rm hash.txt	
+}
+
 zydra_wordlists()
 {
 	echo "Podaj sciezke do pliku np. /home/kali/Desktop/plik.zip";
@@ -72,25 +83,31 @@ own_zip_protect()
 	sudo bash zipcracker.sh
 }
 
+
+
+
 exit_work()
 {
 	exit
 }
 
 
-figlet zipcracker 1.1
+figlet zipcracker 2.1
 echo " ------------------------------------------------------------------------------ "
-echo "   Narzędzie powstało tylko do celów edukacyjnych! --> zipcracker Version 1.1"
+echo "   Narzędzie powstało tylko do celów edukacyjnych! --> zipcracker Version 2.1"
 echo " ------------------------------------------------------------------------------ "
 echo -e "\e[5m  KUP KURS NA WWW.EHAKER.PL \e[0m"
-echo -e "\e[5m  KUP KURS NA WWW.EHACKING.PL \e[0m"
+echo ""
 echo "Wybierz opcje"
 echo "================="
 echo -e "\e[31m  [0] ZAINSTALUJ WYMAGANIA \e[0m"
-echo -e "\e[31m  [1] (fcrackzip) SZYBKIE LAMANIE HASLA - SLOWNIK UZYTKOWNIKA\e[0m"
-echo -e "\e[31m  [2] (fcrackzip) SZYBKIE LAMANIE HASLA - SLOWNIK WBUDOWANY\e[0m"
-echo -e "\e[31m  [3] (john2zip) SZYBKIE LAMANIE HASLA - SLOWNIK WBUDOWANY\e[0m - NIEAKTYWNY, oczekuj aktualizacji!"
-echo -e "\e[31m  [4] (zydra) SZYBKIE LAMANIE HASLA - SLOWNIK WBUDOWANY\e[0m - NOWOSC" 
+
+
+echo -e "\e[31m  [1] (fcrackzip) SZYBKIE LAMANIE HASLA ARCHIWUM ZIP - SLOWNIK UZYTKOWNIKA\e[0m"
+echo -e "\e[31m  [2] (fcrackzip) SZYBKIE LAMANIE HASLA ARCHIWUM ZIP - SLOWNIK WBUDOWANY\e[0m"
+echo -e "\e[31m  [3] (john2zip) SZYBKIE LAMANIE HASLA ARCHIWUM ZIP - - SLOWNIK WBUDOWANY\e[0m - NIEAKTYWNY, oczekuj aktualizacji!"
+echo -e "\e[31m  [4] (zydra) SZYBKIE LAMANIE HASLA ARCHIWUM ZIP - SLOWNIK WBUDOWANY\e[0m - NOWOSC" 
+echo -e "\e[31m  [5] (rar2john) SZYBKIE LAMANIE HASLA ARCHIWUM RAR - SLOWNIK WBUDOWANY\e[0m - NOWOSC" 
 
 echo -e "\e[31m  [99] Zabezpiecz pliki - Generowanie zipa z haslem\e[0m"
 echo -e "\e[31m  [100] Pobierz najnowszy slownik hasel \e[0m"
@@ -107,11 +124,12 @@ case "$opcja" in
   "2") fcrackzip_wordlist_wbudowany ;;
   "3") zip2john_brute ;;
   "4") zydra_wordlists ;;
+  "5") rar2john ;;
   "99") own_zip_protect ;;
   "100") Pobierz_slownik ;;
   
   "101") exit_work ;;
-  *)  clear && ./zipcracker.sh
+  *)  clear && sudo bash zipcracker.sh
   
 esac
 
